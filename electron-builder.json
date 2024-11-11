@@ -1,6 +1,7 @@
 {
     "appId": "com.vgdsn.prodify",
     "files": ["dist-electron", "dist-react"],
+    "extraResources": ["dist-electron/preload.cts", "src/assets/**"],
     "icon": "./desktopIcon.png",
     "mac": {
         "target": "dmg"
