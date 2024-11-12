@@ -6,6 +6,7 @@ export enum AppViews {
   Dashboard = 'dashboard',
   Settings = 'settings',
   About = 'about',
+  TextAudio = 'textaudio'
 }
 
 interface AppContextProps {

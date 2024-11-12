@@ -7,8 +7,8 @@ app.on("ready", () => {
     const display = screen.getPrimaryDisplay();
     const { width, height } = display.workAreaSize;
 
-    const windowWidth = Math.floor(width * 0.65);
-    const windowHeight = Math.floor(height * 0.75);
+    const windowWidth = Math.floor(width * 0.55);
+    const windowHeight = Math.floor(height * 0.65);
 
     const mainWindow = new BrowserWindow({
         width: windowWidth,
@@ -20,7 +20,7 @@ app.on("ready", () => {
 
     if (isDev()) {
         mainWindow.loadURL('http://localhost:3003');
-        Menu.setApplicationMenu(null);
+        // Menu.setApplicationMenu(null);
     } else {
         mainWindow.loadFile(path.join(app.getAppPath(), "/dist-react/index.html"));
     }

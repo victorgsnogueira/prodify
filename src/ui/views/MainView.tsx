@@ -1,7 +1,7 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar';
-import ContentArea from '../components/ContentArea';
 import Dashboard from './Dashboard';
+import TextAudio from './TextAudio'; // Import da nova view
 import { useAppContext } from '../context/AppContext';
 
 const MainView: React.FC = () => {
@@ -11,6 +11,8 @@ const MainView: React.FC = () => {
     switch (activeView) {
       case 'dashboard':
         return <Dashboard />;
+      case 'textaudio':
+        return <TextAudio />;
       case 'settings':
         return <div>Settings Page</div>;
       case 'about':
@@ -21,11 +23,9 @@ const MainView: React.FC = () => {
   };
 
   return (
-    <div className="flex h-full">
+    <div className="flex h-full w-full bg-[#212121]">
       <Sidebar />
-      <ContentArea>
-        {renderContent()}
-      </ContentArea>
+      {renderContent()}
     </div>
   );
 };
