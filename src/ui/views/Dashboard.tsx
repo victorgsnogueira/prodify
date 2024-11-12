@@ -1,5 +1,3 @@
-// Dashboard.tsx
-
 import React from 'react';
 import { useAppContext } from '../context/AppContext';
 
@@ -7,11 +5,8 @@ const Dashboard: React.FC = () => {
   const { setShowWelcome } = useAppContext();
 
   const resetWelcome = () => {
-    // Limpar o 'welcomeShown' no localStorage para forçar a tela de boas-vindas a aparecer
     localStorage.removeItem('welcomeShown');
-    // Definir o estado showWelcome como verdadeiro, para exibir a tela de boas-vindas na próxima inicialização
     setShowWelcome(true);
-    // Opcional: Reiniciar o app, recarregando a página
     window.location.reload();
   };
 

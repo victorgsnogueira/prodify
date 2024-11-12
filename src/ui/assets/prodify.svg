@@ -3,7 +3,7 @@
     <style>
       .cls-1 {
         font-size: 148.167px;
-        fill: #222;
+        fill: #000;
         text-anchor: middle;
         font-family: GeometrisRound-RegularSemCond, "Geometris Round";
       }
