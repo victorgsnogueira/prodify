@@ -8,14 +8,14 @@ const Sidebar: React.FC = () => {
   const getButtonClasses = (view: AppViews) => {
     const isActive = activeView === view;
     return `
-      flex items-center py-2 px-4 mb-[2px] w-full rounded-lg
-      ${isActive ? 'bg-[#8e94f2] text-white' : 'bg-[#6c63ff] text-[#ffffff]'}
-      hover:bg-[#9fa0ff] transition duration-300 outline-none focus:outline-none focus:ring-0
+      flex items-center py-2 px-4 mb-[2px] w-full h-[60px] rounded-xl
+      ${isActive ? 'bg-[#121212] text-white' : 'bg-[#212121] text-[#ffffff]'}
+      hover:bg-[#161616] transition duration-100 outline-none focus:outline-none
     `;
   };
 
   return (
-    <div className="w-64 bg-[#212121] text-white p-4">
+    <div className="w-64 rounded-e-md bg-[#212121] text-white p-4">
       <div className='flex items-center justify-center mb-[20px]'>
         <img className='w-[100px]' src={prodifyLogo} alt="Prodify Logo" />
       </div>

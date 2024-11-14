@@ -11,7 +11,7 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="p-4 bg-[#212121]">
+    <div className="p-4 m-6 w-full bg-[#212121] rounded-xl">
       <h1 className="text-xl font-bold text-white">Dashboard</h1>
       <button 
         onClick={resetWelcome} 
