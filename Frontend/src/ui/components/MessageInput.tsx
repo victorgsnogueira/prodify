@@ -28,7 +28,7 @@ const MessageInput: React.FC = () => {
         const binaryAudio = atob(data.audioContent);
         const arrayBuffer = new ArrayBuffer(binaryAudio.length);
         const view = new Uint8Array(arrayBuffer);
-        
+
         for (let i = 0; i < binaryAudio.length; i++) {
           view[i] = binaryAudio.charCodeAt(i);
         }
@@ -36,7 +36,7 @@ const MessageInput: React.FC = () => {
         const audioBlob = new Blob([arrayBuffer], { type: 'audio/mp3' });
         const audioUrl = URL.createObjectURL(audioBlob);
         const audio = new Audio(audioUrl);
-        
+
         audio.onended = () => {
           URL.revokeObjectURL(audioUrl);
         };
@@ -63,8 +63,13 @@ const MessageInput: React.FC = () => {
         placeholder="Digite sua mensagem..."
         className="flex-1 ml-2 bg-transparent text-white placeholder-[#b4b4b4] p-2 outline-none"
         disabled={isLoading}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            handleSubmit();
+          }
+        }}
       />
-      <button 
+      <button
         onClick={handleSubmit}
         disabled={isLoading}
         className="p-2 mr-2 text-white hover:text-[#8e94f2] transition duration-300"

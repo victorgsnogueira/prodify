@@ -29,9 +29,7 @@ const SpeechInput: React.FC<SpeechInputProps> = ({ onTranscriptionComplete }) =>
         ? 'audio/webm;codecs=opus'
         : 'audio/webm';
       
-      mediaRecorderRef.current = new MediaRecorder(stream, {
-        mimeType
-      });
+      mediaRecorderRef.current = new MediaRecorder(stream, { mimeType });
       chunksRef.current = [];
 
       mediaRecorderRef.current.ondataavailable = (event) => {
@@ -50,6 +48,13 @@ const SpeechInput: React.FC<SpeechInputProps> = ({ onTranscriptionComplete }) =>
           }
 
           const audioBlob = new Blob(chunksRef.current, { type: mimeType });
+          
+          // Debug logs
+          console.log('Blob criado:', {
+            type: audioBlob.type,
+            size: audioBlob.size
+          });
+
           const formData = new FormData();
           formData.append('audio', audioBlob, 'recording.webm');
 
@@ -59,12 +64,22 @@ const SpeechInput: React.FC<SpeechInputProps> = ({ onTranscriptionComplete }) =>
             body: formData,
           });
 
-          if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}));
-            throw new Error(errorData.error || `Erro no servidor: ${response.status}`);
+          // Log da resposta completa
+          const responseText = await response.text();
+          console.log('Resposta do servidor (texto completo):', responseText);
+
+          // Tenta fazer parse do JSON
+          let data;
+          try {
+            data = JSON.parse(responseText);
+          } catch (parseError) {
+            console.error('Erro ao fazer parse do JSON:', parseError);
+            throw new Error(`Resposta inválida do servidor: ${responseText}`);
           }
 
-          const data = await response.json();
+          if (!response.ok) {
+            throw new Error(data.error || `Erro no servidor: ${response.status}`);
+          }
           
           if (!data.success || !data.text) {
             throw new Error(data.error || 'Resposta inválida do servidor');
