@@ -7,12 +7,14 @@ require('dotenv').config();
 
 const app = express();
 
-// Defina as origens permitidas para CORS
+// Definir as origens permitidas para CORS
 const corsOptions = {
-  origin: ['http://localhost:3003', 'https://prodify-ruddy.vercel.app'], // Permitindo origens específicas
+  origin: ['http://localhost:3003', 'https://prodify-ruddy.vercel.app'], // Permitir apenas origens específicas
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type'],
-  credentials: true,  // Permite o envio de cookies ou cabeçalhos de autenticação, se necessário
+  credentials: true, // Permitir envio de cookies, se necessário
+  preflightContinue: false, // Não permitir que o CORS faça redirecionamento
+  optionsSuccessStatus: 204, // Definir código de sucesso para as requisições OPTIONS
 };
 
 // Aplicando o middleware de CORS
