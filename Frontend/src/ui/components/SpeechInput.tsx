@@ -59,7 +59,7 @@ const SpeechInput: React.FC<SpeechInputProps> = ({ onTranscriptionComplete }) =>
           formData.append('audio', audioBlob, 'recording.webm');
 
           console.log('📤 Enviando áudio para o servidor...');
-          const response = await fetch('http://localhost:3000/api/speech-to-text', {
+          const response = await fetch('http://prodify-ruddy.vercel.app/api/speech-to-text', {
             method: 'POST',
             body: formData,
           });
