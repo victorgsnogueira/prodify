@@ -7,7 +7,20 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors());
+// Configuração mais detalhada do CORS
+const corsOptions = {
+  origin: true, // Reflect the request origin
+  credentials: true,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
+
+// Handle OPTIONS preflight
+app.options('*', cors(corsOptions));
 
 // Aumentar o limite do body-parser
 app.use(bodyParser.json({ limit: '50mb' }));
