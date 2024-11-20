@@ -3,6 +3,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const apiRoutes = require('./routes/api');
 
+require('dotenv').config();
+
+
+
 const app = express();
 
 // Aumentar o limite do body-parser
@@ -20,5 +24,5 @@ app.use('/api', apiRoutes);
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on port ${port}`);;
 });

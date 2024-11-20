@@ -8,7 +8,7 @@ const textToSpeech = async (text) => {
             name: 'pt-BR-Wavenet-C',
             ssmlGender: 'female',
         },
-        audioConfig: { audioEncoding: 'MP3' },
+        audioConfig: { audioEncoding: 'MP3' },  
     };
 
     try {

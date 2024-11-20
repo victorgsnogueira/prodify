@@ -2,7 +2,6 @@ const { speechClient } = require('../config/google-cloud');
 
 const speechToText = async (audioContent) => {
   try {
-    // Verificar se o conteúdo de áudio está presente
     if (!audioContent) {
       throw new Error('Nenhum conteúdo de áudio fornecido');
     }
