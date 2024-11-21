@@ -12,12 +12,14 @@ const MessageInput: React.FC = () => {
     console.log('🎯 Iniciando conversão de texto:', text);
 
     try {
-      const response = await fetch('http://prodify-ruddy.vercel.app/api/text-to-speech', {
+      const response = await fetch('https://prodify-ruddy.vercel.app/api/text-to-speech', {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
-        body: JSON.stringify({ text }),
+        body: JSON.stringify({ text: text.trim() }), // Garante que o texto está sendo enviado corretamente
       });
 
       const data = await response.json();

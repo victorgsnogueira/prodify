@@ -16,19 +16,19 @@ const SpeechInput: React.FC<SpeechInputProps> = ({ onTranscriptionComplete }) =>
     try {
       setError(null);
       console.log('🎤 Solicitando permissão do microfone');
-      
-      const stream = await navigator.mediaDevices.getUserMedia({ 
-        audio: { 
+
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: {
           sampleRate: 48000,
           channelCount: 1
-        } 
+        }
       });
-      
+
       // Verificar suporte ao codec
       const mimeType = MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
         ? 'audio/webm;codecs=opus'
         : 'audio/webm';
-      
+
       mediaRecorderRef.current = new MediaRecorder(stream, { mimeType });
       chunksRef.current = [];
 
@@ -42,13 +42,13 @@ const SpeechInput: React.FC<SpeechInputProps> = ({ onTranscriptionComplete }) =>
         try {
           setIsProcessing(true);
           console.log('🎤 Gravação finalizada, preparando arquivo');
-          
+
           if (chunksRef.current.length === 0) {
             throw new Error('Nenhum áudio foi gravado');
           }
 
           const audioBlob = new Blob(chunksRef.current, { type: mimeType });
-          
+
           // Debug logs
           console.log('Blob criado:', {
             type: audioBlob.type,
@@ -61,6 +61,10 @@ const SpeechInput: React.FC<SpeechInputProps> = ({ onTranscriptionComplete }) =>
           console.log('📤 Enviando áudio para o servidor...');
           const response = await fetch('http://prodify-ruddy.vercel.app/api/speech-to-text', {
             method: 'POST',
+            credentials: 'include',
+            headers: {
+              'Accept': 'application/json',
+            },
             body: formData,
           });
 
@@ -80,7 +84,7 @@ const SpeechInput: React.FC<SpeechInputProps> = ({ onTranscriptionComplete }) =>
           if (!response.ok) {
             throw new Error(data.error || `Erro no servidor: ${response.status}`);
           }
-          
+
           if (!data.success || !data.text) {
             throw new Error(data.error || 'Resposta inválida do servidor');
           }
@@ -126,7 +130,7 @@ const SpeechInput: React.FC<SpeechInputProps> = ({ onTranscriptionComplete }) =>
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <button 
+      <button
         onClick={handleClick}
         disabled={isProcessing}
         className={`
@@ -138,11 +142,11 @@ const SpeechInput: React.FC<SpeechInputProps> = ({ onTranscriptionComplete }) =>
       >
         <LuMic size={32} className="text-white" />
       </button>
-      
+
       {isProcessing && (
         <p className="text-sm text-gray-600">Processando áudio...</p>
       )}
-      
+
       {error && (
         <div className="flex items-center gap-2 p-3 mt-2 text-sm bg-red-100 border border-red-300 text-red-600 rounded-md">
           <LuAlertCircle className="flex-shrink-0" size={16} />
